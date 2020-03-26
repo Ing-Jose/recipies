@@ -7,7 +7,17 @@ export 'package:cooking_at_home/src/bloc/platos_bloc.dart';
 class Provider extends InheritedWidget{
   // instanciando el patron bloc
   final _platoBloc = new PlatosBloc(); // primera y unica instancia
-  // static Provider _instancia;
+  static Provider _instancia; // INTANCIA de la clase
+  // para saber si necesito regresar una nueva intancia o utilizar ya un existente
+  factory Provider({Key key, Widget child}){
+    if (_instancia==null) { // se necesita crear una nueva
+      _instancia = new Provider._internal(key: key, child: child,);
+      
+    }
+    return _instancia;
+  }
+  Provider._internal ({Key key, Widget child})
+  : super(key: key, child: child);
 
   // factory Provider({Key key, Widget child}){
   //   if (_instancia==null) {
@@ -19,8 +29,8 @@ class Provider extends InheritedWidget{
   // // contructor de forma corta. 
   // // Key= identificar unico del widget
   // // super para inicializar el InheritedWidget
-  Provider ({Key key, Widget child})
-  : super(key: key, child: child);
+  // Provider ({Key key, Widget child})
+  // : super(key: key, child: child);
  ////////////////////// opc 1/////////////////////////////////
   // Provider._internal({Key key, Widget child}) 
   //   : super(key: key, child: child);

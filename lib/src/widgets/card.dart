@@ -15,9 +15,9 @@ class CardSwiper extends StatelessWidget {
     final _screenSize = MediaQuery.of(context).size;
     return Padding(
         padding: EdgeInsets.fromLTRB(
-            _screenSize.width * 0.019,
+            _screenSize.width * 0.012,
             _screenSize.height * 0.01,
-            _screenSize.width * 0.019,
+            _screenSize.width * 0.012,
             _screenSize.height * 0.13),
         child: _cardImage(context));
   }
@@ -64,7 +64,7 @@ class CardSwiper extends StatelessWidget {
                       ),
                     ),
                   ),
-                  parallaxContainerText(info)
+                  //parallaxContainerText(info)
                 ],
               ),
             ),

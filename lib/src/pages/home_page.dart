@@ -24,9 +24,13 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+  
   final platosBloc = Provider.platosBloc(context);
+  
   platosBloc.obtenerPlatos();
+  
     return Scaffold(
+      // backgroundColor: Colors.deepPurple.withOpacity(.6),
       appBar: AppBar(
         title: Text('Cooking at Home'),
         actions: <Widget>[
@@ -40,6 +44,7 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           children: <Widget>[
             BannerImag(tipoPlato: 'Almuerzos', url: 'assets/img1.jpg',),
+            // Spacer(),
             _swiperTarjetas(platosBloc),
           ],
         ),
@@ -74,14 +79,15 @@ class _HomePageState extends State<HomePage> {
         }
       },
     );
+    // return Placeholder();
   } 
 
   FloatingActionButton _crearBtn(BuildContext context) {
     return FloatingActionButton(
       child: Icon(Icons.add),
       backgroundColor: Colors.deepPurple,
-      // onPressed: ()=>Navigator.of(context).pushNamed('add')
-      onPressed: ()=>_confirmar(context)
+      onPressed: ()=>Navigator.of(context).pushNamed('add')
+      // onPressed: ()=>_confirmar(context)
     );
   }
 

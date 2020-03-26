@@ -23,7 +23,7 @@ class BannerImag extends StatelessWidget {
             clipper: _MyClipper(),
             child: Container(
               width: _screenSize.width,
-              height: _screenSize.height*0.28, // ocupa el 25% de la patalla 
+              height: _screenSize.height*0.25, // ocupa el 25% de la patalla 
               decoration: BoxDecoration(
                 image: DecorationImage(
                   // image: NetworkImage(url),

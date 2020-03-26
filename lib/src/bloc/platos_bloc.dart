@@ -4,6 +4,7 @@ import 'dart:async';
 import 'package:rxdart/subjects.dart';
 
 import 'package:cooking_at_home/src/models/platos_models.dart';
+export 'package:cooking_at_home/src/models/platos_models.dart';
 import 'package:cooking_at_home/src/providers/plato_provider.dart';
 
 class PlatosBloc {
