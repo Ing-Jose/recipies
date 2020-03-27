@@ -17,8 +17,7 @@ class AddPlatoPage extends StatefulWidget {
 
 class _AddPlatoPageState extends State<AddPlatoPage> {
   final formKey = GlobalKey<FormState>(); // para refenrenciar el formulario
-  final scaffoldKey = GlobalKey<
-      ScaffoldState>(); // para refenrenciar el Scaffold para mostrar el snakBar
+  final scaffoldKey = GlobalKey<ScaffoldState>(); // para refenrenciar el Scaffold para mostrar el snakBar
   final PlatosProvider _platosProvider = PlatosProvider();
   PlatoModel _platoModel = PlatoModel();
   String categoria;
@@ -28,8 +27,7 @@ class _AddPlatoPageState extends State<AddPlatoPage> {
 
   @override
   Widget build(BuildContext context) {
-    final PlatoModel _arg =
-        ModalRoute.of(context).settings.arguments; // obteniendo los argumentos
+    final PlatoModel _arg = ModalRoute.of(context).settings.arguments; // obteniendo los argumentos
     // Obteniendo el tamaño del dipositivo, para trabajar con sus dimensiones
     final _screenSize = MediaQuery.of(context).size;
 
@@ -53,8 +51,8 @@ class _AddPlatoPageState extends State<AddPlatoPage> {
       ),
       body: SingleChildScrollView(
           // child: buildContainer1(),
-          child: Stack(
-        children: <Widget>[
+        child: Stack(
+          children: <Widget>[
           Container(
             height: _screenSize.height * .40,
             decoration: BoxDecoration(
