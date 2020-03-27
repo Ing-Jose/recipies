@@ -11,14 +11,16 @@ class AddPlatoPage extends StatefulWidget {
   static final String namePage = 'add';
 
   AddPlatoPage({Key key}) : super(key: key);
-
+  
   @override
   _AddPlatoPageState createState() => _AddPlatoPageState();
 }
 
 class _AddPlatoPageState extends State<AddPlatoPage> {
+  
   final formKey = GlobalKey<FormState>(); // para refenrenciar el formulario
-  final scaffoldKey = GlobalKey<ScaffoldState>(); // para refenrenciar el Scaffold para mostrar el snakBar
+  final scaffoldKey = GlobalKey<
+      ScaffoldState>(); // para refenrenciar el Scaffold para mostrar el snakBar
   // final PlatosProvider _platosProvider = PlatosProvider();
   PlatoModel _platoModel = PlatoModel();
   String categoria;
@@ -28,9 +30,8 @@ class _AddPlatoPageState extends State<AddPlatoPage> {
 
   @override
   Widget build(BuildContext context) {
-    
-
-    final PlatoModel _arg = ModalRoute.of(context).settings.arguments; // obteniendo los argumentos
+    final PlatoModel _arg =
+        ModalRoute.of(context).settings.arguments; // obteniendo los argumentos
     // Obteniendo el tamaño del dipositivo, para trabajar con sus dimensiones
     final _screenSize = MediaQuery.of(context).size;
 
@@ -41,7 +42,7 @@ class _AddPlatoPageState extends State<AddPlatoPage> {
     }
 
     return Scaffold(
-      backgroundColor:  Color.fromRGBO(244, 243, 243, 1),
+      backgroundColor: Color.fromRGBO(244, 243, 243, 1),
       key: scaffoldKey,
       appBar: AppBar(
         backgroundColor: Colors.purple[100],
@@ -54,8 +55,8 @@ class _AddPlatoPageState extends State<AddPlatoPage> {
       ),
       body: SingleChildScrollView(
           // child: buildContainer1(),
-        child: Stack(
-          children: <Widget>[
+          child: Stack(
+        children: <Widget>[
           Container(
             height: _screenSize.height * .40,
             decoration: BoxDecoration(
@@ -146,14 +147,7 @@ class _AddPlatoPageState extends State<AddPlatoPage> {
             ),
           ),
         ],
-      )
-          // Column(
-          //   children: <Widget>[
-          //     // buildContainerAddImagen(),
-          //     // contenedorForm()
-          //   ],
-          // ),
-          ),
+      )),
       // resizeToAvoidBottomPadding: false,
     );
   }
@@ -332,7 +326,6 @@ class _AddPlatoPageState extends State<AddPlatoPage> {
 
     // enviando la imagen y esperando el url
     if (img != null) {
-      
       _platoModel.fotoUrl = await platosBloc.subirImagen(img);
       // _platoModel.fotoUrl = await _platosProvider.subirImagen(img);
     }
@@ -356,7 +349,7 @@ class _AddPlatoPageState extends State<AddPlatoPage> {
   }
 
   Future showDialogCategoria() {
-    return showDialog(
+     return showDialog(
         context: context,
         builder: (context) => AlertDialog(
               content: Text("Debe seleccionar una categoría"),
@@ -365,7 +358,8 @@ class _AddPlatoPageState extends State<AddPlatoPage> {
                     child: Text('Ok'),
                     onPressed: () => Navigator.of(context).pop()),
               ],
-            ));
+        )
+    );
   }
 
   /// metodo que sirve para mostar un SnackBar cuando se manda la peticion de guardar o actualizar

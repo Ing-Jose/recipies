@@ -1,3 +1,5 @@
+import 'package:cooking_at_home/src/pages/breakfast_page.dart';
+import 'package:cooking_at_home/src/pages/lunch_page.dart';
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 
@@ -21,13 +23,14 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   // final PlatosProvider _platosProvider = PlatosProvider();
   int _currenIndex = 1;
-
+  PlatosBloc platosBloc;
+  
   @override
   Widget build(BuildContext context) {
   
-  final platosBloc = Provider.platosBloc(context);
-  
+  platosBloc = Provider.platosBloc(context);
   platosBloc.obtenerPlatos();
+  
   
     return Scaffold(
       // backgroundColor: Colors.deepPurple.withOpacity(.6),
@@ -40,21 +43,35 @@ class _HomePageState extends State<HomePage> {
           )
         ],
       ),
-      body: Container(
-        child: Column(
-          children: <Widget>[
-            BannerImag(tipoPlato: 'Almuerzos', url: 'assets/img1.jpg',),
-            // Spacer(),
-            _swiperTarjetas(platosBloc),
-          ],
-        ),
-    ),
+      body: _selectedPage(_currenIndex),
+      
+    //   Container(
+    //     child: Column(
+    //       children: <Widget>[
+    //         BannerImag(tipoPlato: 'Almuerzos', url: 'assets/img1.jpg',),
+    //         // Spacer(),
+    //         _swiperTarjetas(platosBloc),
+    //       ],
+    //     ),
+    // ),
       floatingActionButton: _crearBtn(context),
       bottomNavigationBar: _crearMenuBtn(),
     );
   
   }
-
+  // Selecionando que mostrar
+  Widget _selectedPage(int pag){
+    switch (pag) {
+      case 0:
+        return BreakfastPage();
+        break;
+      case 1:
+        return LunchPage();
+        break;
+      default: LunchPage();
+    }
+    return null;
+  }
   _confirmar(BuildContext context) async {
     final confirmarOk =  await Dialogo.confirmar(context,title: 'ACCIÓN REQUERIDA',body: 'Esta seguro que desea salir?');
     print('is $confirmarOk');
@@ -91,16 +108,6 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  // Widget _cuerpo() {
-  //   return Container(
-  //     child: Column(
-  //       children: <Widget>[
-  //         BannerImag(tipoPlato: 'Todos', url: 'assets/img1.jpg',),
-  //         _swiperTarjetas(),
-  //       ],
-  //     ),
-  //   );
-  // }
 
   Widget _crearMenuBtn(){
     return CurvedNavigationBar(

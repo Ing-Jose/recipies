@@ -60,13 +60,13 @@ class CardSwiper extends StatelessWidget {
             SizedBox(
               width: _screenSize.width * .023,
             ),
-            Container(
-              height: _screenSize.height * 0.079,
-              width: 3.9,
-              color: Colors.orange,
-            ),
+            // Container(
+            //   height: _screenSize.height * 0.079,
+            //   width: 3.9,
+            //   color: Colors.orange,
+            // ),
             SizedBox(width: 10.0),
-            buildDescriptionClasif(index),
+            // buildDescriptionClasif(index),
           ],
         ),
       ),

@@ -39,7 +39,6 @@ class PlatosBloc with Validators{
   /// Metodo para agregar un nuevo plato
   void agregarPlato(PlatoModel plato) async {
     _cargandoControlle.sink.add(true);
-    //TODO: falta agregar la imagen del plato
     await _platoProvider.crearPlato(plato);
     _cargandoControlle.sink.add(false);
 
@@ -49,6 +48,7 @@ class PlatosBloc with Validators{
     _cargandoControlle.sink.add(true);
     final imagenUrl = await _platoProvider.subirImagen(refImagen);
     _cargandoControlle.sink.add(false);
+    return imagenUrl;
   }
   // Eliminar imagen
   Future<void> eliminarImg(String url) async {
