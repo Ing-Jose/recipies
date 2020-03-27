@@ -13,6 +13,8 @@ class SearchPage extends StatefulWidget {
   _SearchPageState createState() => new _SearchPageState();
 }
 class _SearchPageState extends State<SearchPage> {
+  int inteCurren = 1;
+  
   @override
   Widget build(BuildContext context) {
     
@@ -29,20 +31,18 @@ class _SearchPageState extends State<SearchPage> {
     );
   }
 
-  SafeArea buildSafeArea(PlatosBloc platosBloc, double height) {
-    return SafeArea(
-      child: ListView(
-        children: <Widget>[
-          // SizedBox(height: 20),
-          buildStackBanner(height),
-          SizedBox(height: height*.015),
-          buildContainerDateMonth(),
-          buildContainerDateDay(),
-          SizedBox(height: height*.011),
-          _swiperTarjetas(platosBloc)
-          // buildStackImage(platosBloc)
-        ],
-      ),
+  ListView buildSafeArea(PlatosBloc platosBloc, double height) {
+    return ListView(
+      children: <Widget>[
+        // SizedBox(height: 20),
+        buildStackBanner(height),
+        SizedBox(height: height*.015),
+        buildContainerDateMonth(),
+        buildContainerDateDay(),
+        SizedBox(height: height*.011),
+        _swiperTarjetas(platosBloc)
+        // buildStackImage(platosBloc)
+      ],
     );
   }
 
@@ -73,6 +73,7 @@ class _SearchPageState extends State<SearchPage> {
       children: <Widget>[
         Container(
           height: height*.26,
+          // color: utils.colorApp
           color: Colors.deepPurple[100],
         ),
         Column(
@@ -294,7 +295,7 @@ class _SearchPageState extends State<SearchPage> {
 
   Widget _swiperTarjetas(PlatosBloc platosBloc){
     return StreamBuilder<List<PlatoModel>>(
-      stream: platosBloc.platoStream,
+      stream: platosBloc.platoDesayunoStream,
       builder: (BuildContext context, AsyncSnapshot<List<PlatoModel>> snapshot){
         
         if (snapshot.hasData) {

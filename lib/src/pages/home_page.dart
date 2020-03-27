@@ -67,9 +67,9 @@ class _HomePageState extends State<HomePage> {
 
   Widget _swiperTarjetas(PlatosBloc platosBloc){
     return StreamBuilder<List<PlatoModel>>(
-      stream: platosBloc.platoStream,
+      stream: platosBloc.platoAlmuerzoStream,
       builder: (BuildContext context, AsyncSnapshot<List<PlatoModel>> snapshot){
-        
+        // print(snapshot.data);
         if (snapshot.hasData) {
           final platoData = snapshot.data;
           // print(platoData[0].plato);

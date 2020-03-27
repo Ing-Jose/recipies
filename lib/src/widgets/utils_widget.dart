@@ -23,3 +23,4 @@ const styleTextTitleDateMoth =
     TextStyle(fontFamily: 'Quicksand', color: Colors.grey, fontSize: 14.0);
 const styleTextTitleDateDay = TextStyle(
     fontFamily: 'Timesroman', fontWeight: FontWeight.bold, fontSize: 30.0);
+// const Color colorApp = Colors.deepPurple[50];

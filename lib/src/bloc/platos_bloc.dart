@@ -1,13 +1,14 @@
 
 import 'dart:io';
 import 'dart:async';
+import 'package:cooking_at_home/src/bloc/validators.dart';
 import 'package:rxdart/subjects.dart';
 
 import 'package:cooking_at_home/src/models/platos_models.dart';
 export 'package:cooking_at_home/src/models/platos_models.dart';
 import 'package:cooking_at_home/src/providers/plato_provider.dart';
 
-class PlatosBloc {
+class PlatosBloc with Validators{
   /**
    * tendremos dos streams 
    * 1) para manejar el listado completo de platos (para cuando se inserte o se haga una modificación, para volverlos a cargar)
@@ -20,8 +21,12 @@ class PlatosBloc {
   final _platoProvider = new PlatosProvider();
 
   // Escuchando lo que salga del Stream
-  // Retorna un Streams que resuelve una lista de platosModel
-  Stream<List<PlatoModel>> get platoStream => _platosControlle.stream;
+  // Retorna un Streams que resuelve una lista de platosModel con la Desayuno
+  Stream<List<PlatoModel>> get platoDesayunoStream => _platosControlle.stream.transform(validarDesayuno);
+  // Retorna un Streams que resuelve una lista de platosModel con la Almuerzo
+  Stream<List<PlatoModel>> get platoAlmuerzoStream => _platosControlle.stream.transform(validarTipoAlmuerzo);
+  // Retorna un Streams que resuelve una lista de platosModel con la cena
+  Stream<List<PlatoModel>> get platoCenaStream => _platosControlle.stream.transform(validarTipoCena);
   // Retorna un Strams que resuelve una booleano
   Stream<bool> get cargandoStream => _cargandoControlle.stream;
   

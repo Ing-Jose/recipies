@@ -20,7 +20,6 @@ class _AddPlatoPageState extends State<AddPlatoPage> {
   final scaffoldKey = GlobalKey<
       ScaffoldState>(); // para refenrenciar el Scaffold para mostrar el snakBar
   final PlatosProvider _platosProvider = PlatosProvider();
-
   PlatoModel _platoModel = PlatoModel();
   String categoria;
   bool _guardando = false;
@@ -31,6 +30,8 @@ class _AddPlatoPageState extends State<AddPlatoPage> {
   Widget build(BuildContext context) {
     final PlatoModel _arg =
         ModalRoute.of(context).settings.arguments; // obteniendo los argumentos
+    // Obteniendo el tamaño del dipositivo, para trabajar con sus dimensiones
+    final _screenSize = MediaQuery.of(context).size;
 
     // si voy a editar o guardar un plato nuevo
     if (_arg != null) {
@@ -42,74 +43,171 @@ class _AddPlatoPageState extends State<AddPlatoPage> {
       backgroundColor:  Color.fromRGBO(244, 243, 243, 1),
       key: scaffoldKey,
       appBar: AppBar(
+        backgroundColor: Colors.purple[100],
         // brightness: Brightness.light,
         // title: Text('Agregar un Nuevo plato'),
-        actions: <Widget>[
-          IconButton(icon: Icon(Icons.image), onPressed: _galeriImage),
-          IconButton(icon: Icon(Icons.camera_alt), onPressed: _camaraImage),
-        ],
+        // actions: <Widget>[
+        //   IconButton(icon: Icon(Icons.image), onPressed: _galeriImage),
+        //   IconButton(icon: Icon(Icons.camera_alt), onPressed: _camaraImage),
+        // ],
       ),
-      body: SafeArea(
-        child: SingleChildScrollView(
+      body: SingleChildScrollView(
           // child: buildContainer1(),
-          child: Column(
-            children: <Widget>[
-              Container(
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color:Colors.white,
-                  borderRadius: BorderRadius.vertical(bottom: Radius.circular(30)),
-                  boxShadow: <BoxShadow>[
-                    BoxShadow(
-                      color:Colors.black12, 
-                      blurRadius: 10.0,
-                      // spreadRadius: 2.0,
-                      // offset: Offset(0,2.0)
-                    )
-                  ]
-                ),
-                padding: EdgeInsets.all(20),
+          child: Stack(
+        children: <Widget>[
+          Container(
+            height: _screenSize.height * .40,
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage('assets/cocina.jpg'), fit: BoxFit.cover)),
+          ),
+          Container(
+            margin: EdgeInsets.only(top: _screenSize.height * .30),
+            child: Material(
+              borderRadius: BorderRadius.only(topLeft: Radius.circular(100)),
+              child: Padding(
+                padding: const EdgeInsets.only(
+                    top: 110, left: 30, right: 10, bottom: 30),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    // Text('data', style: TextStyle(fontSize: 25),)
-                    Text('Agregar',
-                      style: TextStyle(color: Colors.black87, fontSize: 25),
-                    ),
-                    SizedBox(height: 3.0),
-                    Text('Nuevo Plato',
-                      style: TextStyle(color: Colors.black87, fontSize: 38),
-                    ),
-                    SizedBox(height: 10.0),
-                    Container(
-                      width: double.infinity,
-                      height: 230.0,
-                      child: _mostrarImg(),
-                    ),
-                    // SizedBox(height: 10.0),
+                    // Container(
+                    //   alignment: Alignment.topLeft,
+                    //   child: Text(
+                    //       'El Ingrediente Secreto \nes el Amor',
+                    //       style: TextStyle(
+                    //       color: Colors.black87,
+                    //       fontSize: 24,
+                    //       fontWeight: FontWeight.bold),
+                    //     ),
+                    // ),
+
+                    contenedorForm(),
                   ],
                 ),
               ),
-              contenedorForm()
-            ],
+            ),
           ),
-        ),
-      ),
+          Positioned(
+            top: 180,
+            right: 21,
+            child: Container(
+              height: 150,
+              width: 100,
+              decoration: BoxDecoration(
+                  // image: DecorationImage(
+                  //     image: AssetImage('assets/img1.jpg'), fit: BoxFit.cover
+                  // ),
+                  // borderRadius: BorderRadius.only(
+                  //   topLeft: Radius.circular(30),
+                  //   // topRight: Radius.circular(30),
+                  //   bottomRight: Radius.circular(30),
+                  //   // bottomLeft: Radius.circular(30)
+                  // ),
+                  boxShadow: <BoxShadow>[
+                    BoxShadow(
+                        color: Colors.deepPurple,
+                        blurRadius: 10.0,
+                        offset: Offset(0, 0))
+                  ]),
+              child: Material(
+                  borderRadius: BorderRadius.only(
+                      // topRight: Radius.circular(30),
+                      topLeft: Radius.circular(30),
+                      bottomLeft: Radius.circular(30),
+                      bottomRight: Radius.circular(30)),
+                  child: _mostrarImg()),
+            ),
+          ),
+          Positioned(
+            top: 311,
+            left: 30,
+            child: Text(
+              'El Ingrediente Secreto \nes el Amor',
+              style: TextStyle(
+                  color: Colors.black87,
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold),
+            ),
+          ),
+          Positioned(
+            top: 330,
+            right: 30,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                IconButton(
+                    icon: Icon(Icons.image, color: Colors.deepPurple),
+                    onPressed: _galeriImage),
+                IconButton(
+                    icon: Icon(Icons.camera_alt, color: Colors.deepPurple),
+                    onPressed: _camaraImage),
+              ],
+            ),
+          ),
+        ],
+      )
+          // Column(
+          //   children: <Widget>[
+          //     // buildContainerAddImagen(),
+          //     // contenedorForm()
+          //   ],
+          // ),
+          ),
       // resizeToAvoidBottomPadding: false,
+    );
+  }
+
+  Container buildContainerAddImagen() {
+    return Container(
+      width: double.infinity,
+      decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.vertical(bottom: Radius.circular(30)),
+          boxShadow: <BoxShadow>[
+            BoxShadow(
+              color: Colors.black12,
+              blurRadius: 10.0,
+              // spreadRadius: 2.0,
+              // offset: Offset(0,2.0)
+            )
+          ]),
+      padding: EdgeInsets.all(20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          // Text('data', style: TextStyle(fontSize: 25),)
+          Text(
+            'Agregar',
+            style: TextStyle(color: Colors.black87, fontSize: 25),
+          ),
+          SizedBox(height: 3.0),
+          Text(
+            'Nuevo Plato',
+            style: TextStyle(color: Colors.black87, fontSize: 38),
+          ),
+          SizedBox(height: 10.0),
+          Container(
+            width: double.infinity,
+            height: 230.0,
+            child: _mostrarImg(),
+          ),
+          // SizedBox(height: 10.0),
+        ],
+      ),
     );
   }
 
   Container contenedorForm() {
     return Container(
-          width: double.infinity,
-          padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              formulario(),
-            ],
-          ),
-        );
+      width: double.infinity,
+      padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 0.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          formulario(),
+        ],
+      ),
+    );
   }
 
   Form formulario() {
@@ -133,7 +231,7 @@ class _AddPlatoPageState extends State<AddPlatoPage> {
 
   Widget _selectorCategoria() {
     return Container(
-      padding: EdgeInsets.only(top:3),
+      padding: EdgeInsets.only(top: 3),
       alignment: Alignment.bottomRight,
       height: 80.0,
       child: CategorySelectionWidget(
@@ -320,7 +418,7 @@ class _AddPlatoPageState extends State<AddPlatoPage> {
           height: 200.0,
         );
       }
-      return Image.asset('assets/no-image.png',fit:BoxFit.cover);
+      return Image.asset('assets/no-image.png', fit: BoxFit.cover);
     }
   }
 }
