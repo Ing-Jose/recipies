@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cooking_at_home/src/bloc/prividers.dart';
 import 'package:flutter/material.dart';
 import 'package:cooking_at_home/src/models/platos_models.dart';
 import 'package:cooking_at_home/src/providers/plato_provider.dart';
@@ -18,7 +19,7 @@ class AddPlatoPage extends StatefulWidget {
 class _AddPlatoPageState extends State<AddPlatoPage> {
   final formKey = GlobalKey<FormState>(); // para refenrenciar el formulario
   final scaffoldKey = GlobalKey<ScaffoldState>(); // para refenrenciar el Scaffold para mostrar el snakBar
-  final PlatosProvider _platosProvider = PlatosProvider();
+  // final PlatosProvider _platosProvider = PlatosProvider();
   PlatoModel _platoModel = PlatoModel();
   String categoria;
   bool _guardando = false;
@@ -27,6 +28,8 @@ class _AddPlatoPageState extends State<AddPlatoPage> {
 
   @override
   Widget build(BuildContext context) {
+    
+
     final PlatoModel _arg = ModalRoute.of(context).settings.arguments; // obteniendo los argumentos
     // Obteniendo el tamaño del dipositivo, para trabajar con sus dimensiones
     final _screenSize = MediaQuery.of(context).size;
@@ -324,12 +327,14 @@ class _AddPlatoPageState extends State<AddPlatoPage> {
     // disparando todos los metodos onSaved de los campos de nuetro formulario
     formKey.currentState.save();
     _platoModel.categoria = categoria;
-
+    final platosBloc = Provider.platosBloc(context);
     setState(() => _guardando = true);
 
     // enviando la imagen y esperando el url
     if (img != null) {
-      _platoModel.fotoUrl = await _platosProvider.subirImagen(img);
+      
+      _platoModel.fotoUrl = await platosBloc.subirImagen(img);
+      // _platoModel.fotoUrl = await _platosProvider.subirImagen(img);
     }
     // print(_platoModel.plato);
     // print(_platoModel.descripcion);
@@ -337,10 +342,12 @@ class _AddPlatoPageState extends State<AddPlatoPage> {
     // print(_platoModel.categoria);
 
     if (_platoModel.id == null) {
-      _platosProvider.crearPlato(_platoModel);
+      platosBloc.agregarPlato(_platoModel);
+      // _platosProvider.crearPlato(_platoModel);
       _mostrarSnackBar('Plato creado');
     } else {
-      _platosProvider.editPlato(_platoModel);
+      platosBloc.editarPlato(_platoModel);
+      // _platosProvider.editPlato(_platoModel);
       _mostrarSnackBar('Plato editado');
     }
 
